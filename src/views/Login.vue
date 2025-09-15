@@ -15,6 +15,8 @@ const a = ref<A>({
 </script>
 
 <template>
-<div></div>
+<div>
+  <input type="text" v-model="a.name" />
+</div>
 </template>
 
