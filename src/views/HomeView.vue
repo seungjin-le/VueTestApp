@@ -1,44 +1,65 @@
 <script setup lang="ts">
-import { useForm } from 'formango'
-import { z } from 'zod'
+import { formatErrorsToZodFormattedError, useForm, type Field } from 'formango';
+import { computed, ref, watch } from 'vue';
+import z, { type ZodFormattedError } from 'zod';
 
-
-// Create a schema
-const exampleForm = z.object({
-  name: z.string().min(1),
-  email: z.string().email(),
-})
-
-// Parse the schema to `useForm` along with a function to handle the submit.
-// Optionally, you can also pass an object to prepare the form.
-const form = useForm({
-  schema: exampleForm,
+const { register, submit ,state} = useForm({
+  schema: z.object({
+    email: z.string().min(1),
+    password: z.string().min(1),
+  }),
   initialState: {
-    name: 'Foo',
-    email: 'foo@mail.com',
+    email: '',
+    password: '',
   },
   onSubmit: (data) => {
-    /* Data type is inferred from the schema, hande your submit logic here.
-      Will only get here if the form is fully valid.
-      {
-        email: string
-        name: string
-      }
-    */
-    console.log(values)
+    console.log(data)
   }
 })
 
-// Now you can register fields on the form, which are fully typed.
-// These fields will handle the actual data-binding
-const name = form.register('name')
-const email = form.register('email')
+
+
+
+function toFormField<TValue, TDefaultValue>(field: Field<TValue, TDefaultValue>): {
+  'isTouched': boolean | undefined
+  'errors': ZodFormattedError<TValue>
+  'modelValue': TDefaultValue extends undefined ? TValue | null : TValue
+  'onBlur': () => void
+  'onUpdate:modelValue': (value: TValue | null) => void
+} {
+  return {
+    'isTouched': field.isTouched.value,
+    'errors': formatErrorsToZodFormattedError(field.errors.value),
+    'modelValue': field.modelValue.value,
+    'onBlur': field.onBlur,
+    'onUpdate:modelValue': field['onUpdate:modelValue'],
+  }
+}
+
+const test = computed(() => register('email').modelValue.value)
+console.log(register('email').modelValue)
+
+watch(() => register('email').modelValue.value, (newVal) => {
+  console.log(newVal)
+}, { immediate: true, deep: true })
 </script>
 
 <template>
-  <input v-bind="name" />
-  <input v-bind="email" />
-  <button @click="form.submit">
-    Submit
-  </button>
+<div>
+
+<div class="text-white">
+  {{ test }}dd
+</div>
+  <input v-bind="toFormField(register('email'))" true-value="네"
+  false-value="아니오"/>
+  <input v-bind="toFormField(register('password'))" true-value="네"
+  false-value="아니오"/>
+  <button @click="submit">Submit</button>
+</div>
 </template>
+
+<style scoped>
+.text-white {
+  color: #fff;
+}
+</style>

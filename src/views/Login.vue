@@ -1,22 +1,29 @@
 <script setup lang="ts">
+import { useForm } from 'formango';
 import { ref } from 'vue';
+import z from 'zod';
 
-
-interface A {
-  name: string
-  password: string
-} 
-
-const a = ref<A>({
-  name: '',
-  password: '',
+const { register, submit } = useForm({
+  schema: z.object({
+    email: z.string().min(1),
+    password: z.string().min(1),
+  }),
+  initialState: {
+    email: '',
+    password: '',
+  },
+  onSubmit: (data) => {
+    console.log(data)
+  }
 })
 
 </script>
 
 <template>
 <div>
-  <input type="text" v-model="a.name" />
+  <input v-bind="register('email')" />
+  <input v-bind="register('password')" />
+  <button @click="submit">Submit</button>
 </div>
 </template>
 
