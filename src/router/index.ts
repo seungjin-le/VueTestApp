@@ -10,9 +10,15 @@ const router = createRouter({
       component: HomeView,
     },
     {
-      path: '/about',
-      name: 'about',
+      path: '/login',
+      name: 'login',
       component: () => import('../views/Login.vue'),
+      children:[
+        {
+          path:'zxcv',
+          component:()=>import('../views/Login.vue')
+        }
+      ]
     },
   ],
 })
