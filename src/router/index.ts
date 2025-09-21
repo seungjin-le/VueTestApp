@@ -12,10 +12,10 @@ const router = createRouter({
     {
       path: '/login',
       name: 'login',
-      component: () => import('../views/Login.vue'),
+      component: () => import('../layouts/LoginLayout.vue'),
       children:[
         {
-          path:'zxcv',
+          path:'/',
           component:()=>import('../views/Login.vue')
         }
       ]
