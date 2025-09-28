@@ -13,17 +13,11 @@ const { register, submit } = useForm({
     password: '',
   },
   onSubmit: (data) => {
-    console.log(data)
-  }
-})
-
+    console.log(data);
+  },
+});
 </script>
 
 <template>
-<div>
-  <input v-bind="register('email')" />
-  <input v-bind="register('password')" />
-  <button @click="submit">Submit</button>
-</div>
+  <div>asdfasdfasdf</div>
 </template>
-
