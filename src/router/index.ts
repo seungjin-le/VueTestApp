@@ -12,20 +12,13 @@ const router = createRouter({
           name: 'home',
           component: () => import('../views/HomeView.vue'),
         },
-        {
-          path: '123',
-          component: () => import('../views/Login.vue'),
-        },
       ],
     },
     {
       path: '/login',
       name: 'login',
-
-      meta: {
-        layout: () => import('../layouts/LoginLayout.vue'),
-      },
-      components: [
+      component: () => import('../layouts/LoginLayout.vue'),
+      children: [
         {
           path: '/',
           component: () => import('../views/Login.vue'),
