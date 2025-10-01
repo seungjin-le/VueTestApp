@@ -2,7 +2,6 @@
 
 <template>
   <div class="bg-[red]">
-
     <RouterView />
   </div>
 </template>
