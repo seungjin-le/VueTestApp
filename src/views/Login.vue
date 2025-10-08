@@ -19,5 +19,8 @@ const { register, submit } = useForm({
 </script>
 
 <template>
-  <div><input type="text" v-bind="register('email')" /> <input type="text" v-bind="register('password')" /></div>
+  <div>
+    <input type="text" />
+    <input type="text" v-bind="register('email')" /> <input type="text" v-bind="register('password')" />
+  </div>
 </template>
