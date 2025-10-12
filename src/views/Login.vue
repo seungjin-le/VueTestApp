@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { useForm } from 'formango';
-import { ref } from 'vue';
 import z from 'zod';
 
 const { register, submit } = useForm({
@@ -12,7 +11,7 @@ const { register, submit } = useForm({
     email: '',
     password: '',
   },
-  onSubmit: (data) => {
+  onSubmit: async (data) => {
     console.log(data);
   },
 });
