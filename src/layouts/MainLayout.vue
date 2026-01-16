@@ -1,7 +1,7 @@
 <script setup lang="ts"></script>
 
 <template>
-  <div class="bg-[red]">
+  <div class="size-full min-h-screen min-w-screen bg-[red]">
     <RouterView />
   </div>
 </template>
